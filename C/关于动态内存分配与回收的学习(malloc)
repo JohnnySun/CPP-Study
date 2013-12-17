@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define N 20
+
+int main()
+{       
+	int i, num, ch, cch, space, others;
+	num = 0;
+	ch = 0;
+	cch = 0;
+	space = 0;
+	others = 0;
+	char *p = (char *) malloc(sizeof(char) * N);
+	for(i = 0; i < N; i++) {
+		char *tmp = (char *) malloc(sizeof(char));
+		scanf("%c", tmp);
+		memset((p+i), *tmp, sizeof(char));
+		free(tmp);
+	}
+	for(i = 0; i < N; i++) {
+		if(*(p+i) >= 48 && *(p+i) <= 57) {
+			num++;
+		} else if(*(p+i) >= 65 && *(p+i) <= 90) {
+			cch++;
+		} else if(*(p+i) >= 97 && *(p+i) <= 122) {
+			ch++;
+		} else if(*(p+i) == '\x20') {
+			space++;
+		} else {
+			others++;
+		}
+	}
+	printf("num = %d\nch = %d\ncch = %d\nspace = %d\nothes = %d\n", num, ch, cch, space, others);
+	free(p);
+	return 0;
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define N 20
+
+int main()
+{       
+	int i, num, ch, cch, space, others;
+	num = 0;
+	ch = 0;
+	cch = 0;
+	space = 0;
+	others = 0;
+	char *p = (char *) malloc(sizeof(char) * N);
+	for(i = 0; i < N - 1; i++) {
+		char *tmp = (char *) malloc(sizeof(char));
+		scanf("%c", tmp);
+		memset((p+i), *tmp, sizeof(char));
+		free(tmp);
+	}
+	memset((p+N-1), 0, sizeof(char));
+	for(i = 0; i < N; i++) {
+		if(*(p+i) == '\x20') {
+			int tmp;
+			for(tmp = i;tmp < N-1; tmp++) {
+				memset((p+tmp), *(p+tmp+1), sizeof(char));
+			}
+			memset((p+N-1), 0, sizeof(char));
+		}
+	}
+	puts(p);
+	free(p);
+	return 0;
+}
+
+下面这个代码好像有点问题
+
+int mystrcmp( int *p1, int *p2 )
+{
+	int i;
+	puts(p1);
+	puts(p2);
+	for(i = 0; i < N; i++) {
+		if(*(p1+i) != *(p2+i)) {
+			int a = (*(p1+i)) - (*(p2+i));
+			printf("%d\n", a);
+			return 1;
+		}
+	}
+}
+int main()
+{
+	int i;
+	char *p1 = (char *) malloc(sizeof(char) * N);
+	char *p2 = (char *) malloc(sizeof(char) * N);
+	gets(p1);
+	getchar();
+	gets(p2);
+	mystrcmp(p1, p2);
+	return 0;
+}
